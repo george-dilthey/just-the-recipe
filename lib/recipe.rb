@@ -1,4 +1,3 @@
-require './lib/scraper.rb'
 
 class Recipe
 
@@ -9,7 +8,7 @@ class Recipe
         @description = description
         @ingredients = ingredients
         @steps = steps
-
     end
 
 end
+

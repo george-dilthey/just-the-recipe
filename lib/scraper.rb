@@ -3,6 +3,8 @@ require 'nokogiri'
 require 'JSON'
 require 'pry'
 
+require_relative './recipe.rb'
+
 class Scraper
 
     def initialize
@@ -13,9 +15,13 @@ class Scraper
         schema.each do |i| 
             type = i["@type"]
             if type == "Recipe"
-                title = 
+                title = i["name"]
+                description = i["description"]
+                ingredients = i["recipeIngredient"]
+                steps = i["recipeInstructions"].map {|ri| ri["text"]}
+                create_new_recipe(title,description,ingredients,steps)
             end
-        end
+        end  
     end
 
     def get_schema(url)   
@@ -23,6 +29,12 @@ class Scraper
         schema = JSON.parse(noko.css('script[type*="application/ld+json"]').text)
     end
 
+    def create_new_recipe(title, description, ingredients, steps)
+        Recipe.new(title,description,ingredients,steps)
+    end
+
 end
 
 Scraper.new.get_recipe_by_schema('https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/')
+
+
