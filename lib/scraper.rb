@@ -13,7 +13,7 @@ class Scraper
         schema.each do |i| 
             type = i["@type"]
             if type == "Recipe"
-                puts type
+                title = 
             end
         end
     end
