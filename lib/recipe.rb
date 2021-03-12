@@ -3,7 +3,7 @@ class Recipe
 
     attr_accessor :title, :description, :ingredients, :steps
 
-    def initialize(title, description, ingredients, steps)
+    def initialize(title, description, ingredients, steps) # ingredients and steps are arrays
         @title = title
         @description = description
         @ingredients = ingredients

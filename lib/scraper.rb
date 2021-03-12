@@ -7,11 +7,14 @@ require_relative './recipe.rb'
 
 class Scraper
 
-    def initialize
+    attr_accessor :url
+
+    def initialize(url)
+        @url=url
     end
 
-    def get_recipe_by_schema(url)
-        schema = get_schema(url)
+    def get_recipe_by_schema
+        schema = get_schema
 
         title = schema["name"]
         description = schema["description"]
@@ -22,8 +25,8 @@ class Scraper
  
     end
 
-    def get_schema(url)   
-        noko = Nokogiri::HTML(open(url))
+    def get_schema   
+        noko = Nokogiri::HTML(open(self.url))
         schemas = JSON.parse(noko.css('script[type*="application/ld+json"]').text)
         recipe_schema = schemas.find{|i| i["@type"] == "Recipe"}
     end
@@ -34,7 +37,7 @@ class Scraper
 
 end
 
-recipe = Scraper.new.get_recipe_by_schema('https://www.foodnetwork.com/recipes/ina-garten/blueberry-coffee-cake-muffins-recipe-1917173')
+recipe = Scraper.new('https://www.foodnetwork.com/recipes/ina-garten/blueberry-coffee-cake-muffins-recipe-1917173').get_recipe_by_schema
 
 recipe.print_recipe
 
