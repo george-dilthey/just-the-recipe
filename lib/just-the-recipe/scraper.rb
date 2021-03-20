@@ -1,6 +1,3 @@
-require 'open-uri'
-require 'nokogiri'
-require 'JSON'
 require 'pry'
 
 require './lib/environment.rb'
@@ -27,8 +24,10 @@ class JustTheRecipe::Scraper
 
     def get_schema   
         noko = Nokogiri::HTML(open(self.url))
-        schemas = JSON.parse(noko.css('script[type*="application/ld+json"]').text)
+        js = (noko.css('script[type*="application/ld+json"]'))
+        js.length > 1 ? schemas = js.map {|i| JSON.parse(i.text)} : schemas = JSON.parse(js.text)   
         recipe_schema = schemas.find{|i| i["@type"] == "Recipe"}
+        
     end
 
     def create_new_recipe(title, description, ingredients, steps)
@@ -37,8 +36,9 @@ class JustTheRecipe::Scraper
 
 end
 
-# recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/270712/air-fryer-coconut-shrimp/').get_recipe_by_schema
+all_recipe = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema
+# serious = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema
 
-# recipe.display_recipe
+all_recipe.display_recipe
 
 
