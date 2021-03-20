@@ -4,6 +4,7 @@ require 'JSON'
 require 'pry'
 
 require_relative './recipe.rb'
+require_relative './just-the-recipe/cli.rb'
 
 class Scraper
 
@@ -37,8 +38,8 @@ class Scraper
 
 end
 
-recipe = Scraper.new('https://www.foodnetwork.com/recipes/ina-garten/blueberry-coffee-cake-muffins-recipe-1917173').get_recipe_by_schema
+recipe = Scraper.new('https://www.allrecipes.com/recipe/270712/air-fryer-coconut-shrimp/').get_recipe_by_schema
 
-recipe.print_recipe
+recipe.display_recipe
 
 
