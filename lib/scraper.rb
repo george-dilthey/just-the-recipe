@@ -3,10 +3,9 @@ require 'nokogiri'
 require 'JSON'
 require 'pry'
 
-require_relative './recipe.rb'
-require_relative './just-the-recipe/cli.rb'
+require_relative './environment.rb'
 
-class Scraper
+class JustTheRecipe::Scraper
 
     attr_accessor :url
 
@@ -33,12 +32,12 @@ class Scraper
     end
 
     def create_new_recipe(title, description, ingredients, steps)
-        Recipe.new(title,description,ingredients,steps)
+        JustTheRecipe::Recipe.new(title,description,ingredients,steps)
     end
 
 end
 
-recipe = Scraper.new('https://www.allrecipes.com/recipe/270712/air-fryer-coconut-shrimp/').get_recipe_by_schema
+recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/270712/air-fryer-coconut-shrimp/').get_recipe_by_schema
 
 recipe.display_recipe
 
