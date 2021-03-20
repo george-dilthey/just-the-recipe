@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'JSON'
 require 'pry'
 
-require_relative './environment.rb'
+require './lib/environment.rb'
 
 class JustTheRecipe::Scraper
 
@@ -37,8 +37,8 @@ class JustTheRecipe::Scraper
 
 end
 
-recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/270712/air-fryer-coconut-shrimp/').get_recipe_by_schema
+# recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/270712/air-fryer-coconut-shrimp/').get_recipe_by_schema
 
-recipe.display_recipe
+# recipe.display_recipe
 
 

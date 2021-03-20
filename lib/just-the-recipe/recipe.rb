@@ -45,14 +45,17 @@ class JustTheRecipe::Recipe
     end
 
     def self.display_cookbook
-        puts "Your cookbook:"
-        @@all.each {|r| 
-            r.display_recipe
-            puts "***********************"
-            puts ""
-        
-        }
-
+        if @@all.length > 0
+            puts "Your cookbook:"
+            @@all.each {|r| 
+                r.display_recipe
+                puts "***********************"
+                puts ""
+            
+            }
+        else 
+            puts "You don't have anything in your cookbook!"
+        end
     end
 
 end
