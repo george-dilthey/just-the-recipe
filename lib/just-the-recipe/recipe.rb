@@ -18,12 +18,15 @@ class JustTheRecipe::Recipe
     end
 
     def display_recipe
-        puts "Here's your recipe:"
         puts " "
         puts "Recipe: #{self.title}"
         puts "Description: #{self.description}"
         display_ingredients(ingredients)
-        display_steps(steps)       
+        display_steps(steps)
+        puts " " 
+        puts "***********************"
+        puts " "
+      
     end
     
     def display_ingredients(array)
@@ -49,9 +52,6 @@ class JustTheRecipe::Recipe
             puts "Your cookbook:"
             @@all.each {|r| 
                 r.display_recipe
-                puts "***********************"
-                puts ""
-            
             }
         else 
             puts "You don't have anything in your cookbook!"

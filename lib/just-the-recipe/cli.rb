@@ -11,7 +11,7 @@ class JustTheRecipe::CLI
 
     def list_options
         puts "1. Search for a new recipe."
-        puts "2. Get an All Recipes recipe from a url."
+        puts "2. Get an AllRecipes recipe from a url."
         puts "3. View your cookbook."
     end
 
@@ -23,9 +23,10 @@ class JustTheRecipe::CLI
             if input == "1"
                 puts "Chose option 1!"
             elsif input == "2"
-                puts "Chose option 2!"
+                scrape_url
             elsif input == "3"
                 JustTheRecipe::Recipe.display_cookbook
+                list_options
             elsif input == "exit"
                 break
             elsif input == "options"
@@ -35,6 +36,30 @@ class JustTheRecipe::CLI
             end
         end
     end
+
+    def scrape_url
+        puts "Enter your AllRecipes url:"
+        url = gets.chomp
+        recipe = JustTheRecipe::Scraper.new(url).get_recipe_by_schema
+        recipe.display_recipe
+        add_recipe(recipe)
+        list_options
+    end
+
+    def add_recipe(recipe)
+        puts "Would you like to add this recipe to your cookbook? (y/n)"
+        input = gets.chomp
+        if input == "y"
+            puts "Ok! I'll add this recipe to your cookbook."
+            recipe.add_to_cookbook
+        elsif input == "n"
+            puts "No problem. This recipe wasn't added to your cookbook."
+        else 
+            puts "Sorry, you'll have to answer with either 'y' or 'n'."
+        end
+    end
+
+
 
     def goodbye
         puts "Thanks for stopping by!"
