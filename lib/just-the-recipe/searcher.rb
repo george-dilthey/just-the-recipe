@@ -19,16 +19,19 @@ class JustTheRecipe::Searcher
 
         response = Net::HTTP.get_response(uri)
         results = JSON.parse(response.body)
-        all_recipes = results["hits"]
-        first_result = all_recipes.find {|f| f["recipe"]["source"] == "Serious Eats"}
-        #  = results["hits"][0]["recipe"]
-        # name = first_result["label"]
-        # description = 
-        # ingredients = first_result["ingredientLines"]
-        # binding.pry
-
+        hits = results["hits"]
+        hits.each do |hit|
+            url = hit["recipe"]["url"]
+            if scrape_recipe(url).class == JustTheRecipe::Recipe
+                return url
+                break
+            end
+        end
     end
 
+    def scrape_recipe(url)
+        JustTheRecipe::Scraper.new(url).get_recipe_by_schema
+    end
 
 end
 

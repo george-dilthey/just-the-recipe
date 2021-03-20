@@ -17,15 +17,16 @@ class JustTheRecipe::Scraper
         description = schema["description"]
         ingredients = schema["recipeIngredient"]
         steps = schema["recipeInstructions"].map {|instruction| instruction["text"].gsub("\n","")}
+
            
         create_new_recipe(title,description,ingredients,steps)
  
     end
 
     def get_schema   
-        noko = Nokogiri::HTML(open(self.url))
+        noko = Nokogiri::HTML(open(@url))
         js = (noko.css('script[type*="application/ld+json"]'))
-        js.length > 1 ? schemas = js.map {|i| JSON.parse(i.text)} : schemas = JSON.parse(js.text)   
+        js.length == 1 ? schemas = JSON.parse(js.text) : schemas = js.map {|i| valid_json?(i.text) ? JSON.parse(i.text) : nil }   
         recipe_schema = schemas.find{|i| i["@type"] == "Recipe"}
         
     end
@@ -34,11 +35,18 @@ class JustTheRecipe::Scraper
         JustTheRecipe::Recipe.new(title,description,ingredients,steps)
     end
 
+    def valid_json?(json)
+        JSON.parse(json)
+        return true
+      rescue JSON::ParserError => e
+        return false
+    end
+
 end
 
-all_recipe = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema
-# serious = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema
+# all_recipe = JustTheRecipe::Scraper.new('http://www.seriouseats.com/recipes/2011/03/bread-baking-70-percent-hydration-bread-recipe.html').get_recipe_by_schema.display_recipe
+# # serious = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema
 
-all_recipe.display_recipe
+# all_recipe.display_recipe
 
 
