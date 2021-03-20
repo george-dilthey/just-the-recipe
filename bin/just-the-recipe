@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require './lib/environment.rb'
 
-CLI.new.call
+JustTheRecipe::CLI.new.call

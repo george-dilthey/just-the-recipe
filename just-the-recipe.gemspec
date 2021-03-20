@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/just/the/recipe/version"
+require "./lib/environment.rb"
 
 Gem::Specification.new do |spec|
   spec.name          = "just-the-recipe"
-  spec.version       = Just::The::Recipe::VERSION
+  spec.version       = JustTheRecipe::VERSION
   spec.authors       = ["George Dilthey"]
   spec.email         = ["george.dilthey@gmail.com"]
 

@@ -1,6 +1,6 @@
 require_relative '../environment.rb'
 
-class CLI
+class JustTheRecipe::CLI
 
     def call
         puts "Welcome to Just the Recipe! What would you like to do? (enter a number 1-3)"
@@ -21,7 +21,7 @@ class CLI
         elsif input == "2"
             puts "Chose option 2!"
         elsif input == "3"
-            Recipe.display_cookbook
+            JustTheRecipe::Recipe.display_cookbook
         else
             puts "Choose a number 1-3."
             choose_option

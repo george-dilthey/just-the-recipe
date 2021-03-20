@@ -1,6 +1,6 @@
 
 require 'pry'
-class Recipe
+class JustTheRecipe::Recipe
 
     attr_accessor :title, :description, :ingredients, :steps
 
