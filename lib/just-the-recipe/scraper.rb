@@ -13,13 +13,17 @@ class JustTheRecipe::Scraper
     def get_recipe_by_schema
         schema = get_schema
 
-        title = schema["name"]
-        description = schema["description"]
-        ingredients = schema["recipeIngredient"]
-        if schema["recipeInstructions"][0]["itemListElement"]
-            steps = schema["recipeInstructions"].map {|section| section["itemListElement"].map {|instruction| instruction["text"].gsub("\n","")}}.flatten
-        else
-            steps = schema["recipeInstructions"].map {|instruction| instruction["text"].gsub("\n","")}
+        schema.key?("name") ? title = schema["name"] : nil
+        schema.key?("description") ? description = schema["description"] : nil
+        schema.key?("recipeIngredients") ? ingredients = schema["recipeIngredient"] : ingredients = []
+        if schema.key?("recipeInstructions")
+            if schema["recipeInstructions"][0]["itemListElement"]
+                steps = schema["recipeInstructions"].map {|section| section["itemListElement"].map {|instruction| instruction["text"].gsub("\n","")}}.flatten
+            else
+                steps = schema["recipeInstructions"].map {|instruction| instruction["text"].gsub("\n","")}
+            end
+        else 
+            steps = [] 
         end
         create_new_recipe(title,description,ingredients,steps, @url)
     end
@@ -35,6 +39,7 @@ class JustTheRecipe::Scraper
             js = (noko.css('script[type*="application/ld+json"]'))
             if js.length == 1 
                 parsed = JSON.parse(js.text)
+                parsed.class != Array ? parsed = [parsed] : parsed = parsed
                 recipe = parsed.find{|i| i["@type"] == "Recipe"}
             else
                 parsed = js.map {|i| valid_json?(i.text) ? JSON.parse(i.text) : nil }
@@ -66,9 +71,10 @@ class JustTheRecipe::Scraper
 end
 
 # veg = JustTheRecipe::Scraper.new('https://www.vegrecipesofindia.com/eggless-chocolate-chip-muffins-recipe/').get_recipe_by_schema.display_recipe
-# all_recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/').get_recipe_by_schema.display_recipe
+#all_recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/').get_recipe_by_schema.display_recipe
 # serious = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema.display_recipe
-get = JustTheRecipe::Scraper.new('https://getmecooking.com/recipes/gambas-al-ajillo-con-setas/').get_recipe_by_schema.display_recipe
+# get = JustTheRecipe::Scraper.new('https://getmecooking.com/recipes/gambas-al-ajillo-con-setas/').get_recipe_by_schema.display_recipe
+big = JustTheRecipe::Scraper.new('https://blog.bigoven.com/category/bigoven-tips/page/15/').get_recipe_by_schema.display_recipe
 
 # all_recipe.display_recipe
 
