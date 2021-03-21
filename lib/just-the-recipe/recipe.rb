@@ -1,15 +1,16 @@
 require 'pry'
 class JustTheRecipe::Recipe
 
-    attr_accessor :title, :description, :ingredients, :steps
+    attr_accessor :title, :description, :ingredients, :steps, :url
 
     @@all = []
 
-    def initialize(title, description, ingredients, steps) # ingredients and steps are arrays
+    def initialize(title, description, ingredients, steps, url) # ingredients and steps are arrays
         @title = title
         @description = description
         @ingredients = ingredients
         @steps = steps
+        @url = url
     end
 
     def self.all
@@ -22,7 +23,7 @@ class JustTheRecipe::Recipe
         puts "Description: #{self.description}"
         display_ingredients(ingredients)
         display_steps(steps)
-        puts " " 
+        puts "Source URL: #{self.url}" 
         puts "***********************"
         puts " "
       

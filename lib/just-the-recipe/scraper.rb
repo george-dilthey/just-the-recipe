@@ -17,10 +17,7 @@ class JustTheRecipe::Scraper
         description = schema["description"]
         ingredients = schema["recipeIngredient"]
         steps = schema["recipeInstructions"].map {|instruction| instruction["text"].gsub("\n","")}
-
-           
-        create_new_recipe(title,description,ingredients,steps)
- 
+        create_new_recipe(title,description,ingredients,steps, @url)
     end
 
     def get_schema   
@@ -31,8 +28,8 @@ class JustTheRecipe::Scraper
         
     end
 
-    def create_new_recipe(title, description, ingredients, steps)
-        JustTheRecipe::Recipe.new(title,description,ingredients,steps)
+    def create_new_recipe(title, description, ingredients, steps, url)
+        JustTheRecipe::Recipe.new(title,description,ingredients,steps,url)
     end
 
     def valid_json?(json)
@@ -40,6 +37,15 @@ class JustTheRecipe::Scraper
         return true
       rescue JSON::ParserError => e
         return false
+    end
+
+    def valid_url?
+        begin
+            get_schema
+        rescue
+            false          
+        end
+    
     end
 
 end
