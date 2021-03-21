@@ -3,7 +3,7 @@ require './lib/environment.rb'
 
 class JustTheRecipe::Recipe
 
-    attr_accessor :title, :description, :ingredients, :steps, :url
+    attr_accessor :title, :description, :ingredients, :steps, :url, :cookbook
 
     @@all = []
 
@@ -43,9 +43,8 @@ class JustTheRecipe::Recipe
         puts "#{return_recipe}"
     end
 
-    
-    def add_to_cookbook
-        @@all << self
+    def add_to_cookbook(name)
+        self.cookbook = JustTheRecipe::Cookbook.find_or_create_by_name(name)
     end
 
     def self.display_cookbook
@@ -64,9 +63,9 @@ class JustTheRecipe::Recipe
 
 end
 
-# new_recipe = JustTheRecipe::Recipe.new('cookies', 'delicious cookies', ['chocolate chips', 'flour'],['make cookie batter', 'cook cookies'], "www.google.com")
-# new_recipe.add_to_cookbook
-# binding.pry
+new_recipe = JustTheRecipe::Recipe.new('cookies', 'delicious cookies', ['chocolate chips', 'flour'],['make cookie batter', 'cook cookies'], "www.google.com")
+new_recipe.add_to_cookbook("George's Cookbook")
+binding.pry
 
 
 

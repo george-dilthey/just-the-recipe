@@ -9,4 +9,5 @@ require './lib/just-the-recipe/cli.rb'
 require './lib/just-the-recipe/recipe.rb'
 require './lib/just-the-recipe/scraper.rb'
 require './lib/just-the-recipe/searcher.rb'
+require './lib/just-the-recipe/cookbook.rb'
 
