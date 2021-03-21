@@ -9,27 +9,33 @@ class JustTheRecipe::Searcher
     end
 
     def api_get
-        base = 'https://api.edamam.com/search'
-        q = @search_term
-        app_id = ENV["APP_ID"]
-        app_key = ENV["APP_KEY"]
+        begin    
+            base = 'https://api.edamam.com/search'
+            q = @search_term
+            app_id = ENV["APP_ID"]
+            app_key = ENV["APP_KEY"]
 
-        url = "#{base}?q=#{q}&app_id=#{app_id}&app_key=#{app_key}"
-        uri = URI.parse(url)
+            url = "#{base}?q=#{q}&app_id=#{app_id}&app_key=#{app_key}"
+            uri = URI.parse(url)
 
-        response = Net::HTTP.get_response(uri)
-        results = JSON.parse(response.body)
-        hits = results["hits"]
-        good_url = ""
-        hits.each do |hit|
-            url = hit["recipe"]["url"]
-            puts url
-            if JustTheRecipe::Scraper.new(url).valid_url?
-                good_url = url
-                break
+            response = Net::HTTP.get_response(uri)
+            results = JSON.parse(response.body)
+            hits = results["hits"]
+        
+            good_url = ""
+            hits.each do |hit|
+                url = hit["recipe"]["url"]
+                if JustTheRecipe::Scraper.new(url).valid_url?
+                    good_url = url
+                    break
+                end
             end
+            scrape_recipe(good_url)
+        rescue
+            puts "Sorry we couldn't find a valid recipe with that search term."
+            
         end
-        scrape_recipe(good_url)
+        
     end
 
     def scrape_recipe(url)
@@ -39,4 +45,4 @@ class JustTheRecipe::Searcher
 end
 
 
-# JustTheRecipe::Searcher.new('potatoe').api_get
+# JustTheRecipe::Searcher.new('pie').api_get

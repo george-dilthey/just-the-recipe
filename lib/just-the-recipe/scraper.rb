@@ -72,13 +72,13 @@ class JustTheRecipe::Scraper
 
 end
 
-veg = JustTheRecipe::Scraper.new('https://www.vegrecipesofindia.com/eggless-chocolate-chip-muffins-recipe/').get_recipe_by_schema.display_recipe
-all_recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/').get_recipe_by_schema.display_recipe
-serious = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema.display_recipe
-get = JustTheRecipe::Scraper.new('https://getmecooking.com/recipes/gambas-al-ajillo-con-setas/').get_recipe_by_schema.display_recipe
-big = JustTheRecipe::Scraper.new('https://blog.bigoven.com/category/bigoven-tips/page/15/').get_recipe_by_schema.display_recipe
-martha = JustTheRecipe::Scraper.new('https://www.marthastewart.com/1511143/potato-galettes').get_recipe_by_schema.display_recipe
-food52 = JustTheRecipe::Scraper.new('https://food52.com/recipes/2250-potatoe-chipotle-tacos').get_recipe_by_schema.display_recipe
+# veg = JustTheRecipe::Scraper.new('https://www.vegrecipesofindia.com/eggless-chocolate-chip-muffins-recipe/').get_recipe_by_schema.display_recipe
+# all_recipe = JustTheRecipe::Scraper.new('https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/').get_recipe_by_schema.display_recipe
+# serious = JustTheRecipe::Scraper.new('https://www.seriouseats.com/recipes/2021/03/orecchiette-con-le-cime-di-rapa.html').get_recipe_by_schema.display_recipe
+# get = JustTheRecipe::Scraper.new('https://getmecooking.com/recipes/gambas-al-ajillo-con-setas/').get_recipe_by_schema.display_recipe
+# big = JustTheRecipe::Scraper.new('https://blog.bigoven.com/category/bigoven-tips/page/15/').get_recipe_by_schema.display_recipe
+# martha = JustTheRecipe::Scraper.new('https://www.marthastewart.com/1511143/potato-galettes').get_recipe_by_schema.display_recipe
+# food52 = JustTheRecipe::Scraper.new('https://food52.com/recipes/2250-potatoe-chipotle-tacos').get_recipe_by_schema.display_recipe
 # all_recipe.display_recipe
 
 

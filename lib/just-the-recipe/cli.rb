@@ -69,9 +69,13 @@ class JustTheRecipe::CLI
         puts "Enter your search term:"
         search_term = gets.chomp
         recipe = JustTheRecipe::Searcher.new(search_term).api_get
-        recipe.display_recipe
-        add_recipe(recipe)
-        list_options
+        if recipe.class == JustTheRecipe::Recipe
+            recipe.display_recipe
+            add_recipe(recipe)
+            list_options
+        else
+            list_options
+        end
     end
 
 
