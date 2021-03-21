@@ -18,7 +18,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To use this gem, you'll need to obtain a free APP ID and APP Key from https://www.edamam.com. Once you have these, create a dotenv file and add these lines at the top:
+
+APP_ID = {{APP ID}}
+APP_KEY = {{APP KEY}}
 
 ## Development
 
@@ -28,4 +31,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/just-the-recipe.
+Bug reports and pull requests are welcome on GitHub at https://github.com/george-dilthey/just-the-recipe.
