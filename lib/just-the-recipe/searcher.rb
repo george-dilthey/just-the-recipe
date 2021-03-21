@@ -28,8 +28,6 @@ class JustTheRecipe::Searcher
                 if JustTheRecipe::Scraper.new(url).valid_url?
                     good_url = url
                     break
-                else
-                    puts url
                 end
 
             end
