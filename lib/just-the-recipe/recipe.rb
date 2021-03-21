@@ -64,9 +64,9 @@ class JustTheRecipe::Recipe
 
 end
 
-new_recipe = JustTheRecipe::Recipe.new('cookies', 'delicious cookies', ['chocolate chips', 'flour'],['make cookie batter', 'cook cookies'], "www.google.com")
-new_recipe.add_to_cookbook("George's Cookbook")
-binding.pry
+# new_recipe = JustTheRecipe::Recipe.new('cookies', 'delicious cookies', ['chocolate chips', 'flour'],['make cookie batter', 'cook cookies'], "www.google.com")
+# new_recipe.add_to_cookbook("George's Cookbook")
+# binding.pry
 
 
 

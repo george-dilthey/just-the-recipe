@@ -3,6 +3,7 @@ require_relative '../environment.rb'
 class JustTheRecipe::CLI
 
     def call
+        JustTheRecipe::Cookbook.create_from_files
         puts "Welcome to Just the Recipe! What would you like to do?"
         list_options
         choose_option
@@ -10,14 +11,14 @@ class JustTheRecipe::CLI
     end
 
     def list_options
+        puts  "\n\nEnter a number 1-3 or type exit."
         puts "1. Search for a new recipe."
         puts "2. Get a recipe from a url."
-        puts "3. View your cookbook."
+        puts "3. View your cookbooks."
     end
 
     def choose_option
         input = nil
-        puts  "Enter a number 1-3 or type exit."
         while input != "exit"
             input = gets.chomp
             if input == "1"
@@ -25,8 +26,7 @@ class JustTheRecipe::CLI
             elsif input == "2"
                 scrape_url
             elsif input == "3"
-                JustTheRecipe::Recipe.display_cookbook
-                list_options
+                cookbook_menu 
             elsif input == "exit"
                 break
             elsif input == "options"
@@ -53,13 +53,15 @@ class JustTheRecipe::CLI
     end
 
     def add_recipe(recipe)
-        puts "Would you like to add this recipe to your cookbook? (y/n)"
+        puts "Would you like to add this recipe to a cookbook? (y/n)"
         input = gets.chomp
         if input == "y"
-            puts "Ok! I'll add this recipe to your cookbook."
-            recipe.add_to_cookbook
+            puts "Ok! Which cookbook would you like to add this recipe to? Type an existing cookbook name, or type anything to create a new one!"
+            cookbook = gets.chomp
+            recipe.add_to_cookbook(cookbook)
+            puts "Great choice. We added this recipe to the cookbook called #{cookbook}"
         elsif input == "n"
-            puts "No problem. This recipe wasn't added to your cookbook."
+            puts "No problem. This recipe wasn't added to a cookbook."
         else 
             puts "Sorry, you'll have to answer with either 'y' or 'n'."
         end
@@ -78,10 +80,43 @@ class JustTheRecipe::CLI
         end
     end
 
+    def cookbook_menu
+        if JustTheRecipe::Cookbook.all.length > 0
+            puts "Type the name of the cookbook you'd like to view, type \"create\" to create a new one, type \"delete\" to delete a cookbook, or type \"exit\" to return to the main menu.\n\n"    
+            JustTheRecipe::Cookbook.list_cookbooks
+        else
+            puts "It looks like you don't have any cookbooks yet. Type \"create\" to create a new one, or type \"exit\" to return to the main menu."
+        end
+        input = gets.chomp
 
+        if JustTheRecipe::Cookbook.find_by_name(input)
+            puts "Here's what's in the cookbook called #{input}:" 
+            puts JustTheRecipe::Cookbook.find_by_name(input).return_cookbook
+            list_options
+        elsif input == "create"
+            puts "Ok! What would you like to name your new cookbook?"
+            cookbook = gets.chomp
+            JustTheRecipe::Cookbook.new(cookbook)
+            puts "Great! We created a new cookbook for you. Find some recipes to add to it!"
+            list_options
+        elsif input == "delete"
+            puts "Which cookbook would you like to delete? WARNING: THIS CANNOT BE UNDONE!\n\n"
+            JustTheRecipe::Cookbook.list_cookbooks
+            delete_cookbook = gets.chomp
+            JustTheRecipe::Cookbook.delete(delete_cookbook)
+            puts "Ok, we deleted that cookbook."
+            list_options
+        elsif input == "exit"
+            list_options
+        else 
+            puts ""
+            puts "Sorry, thats not a valid cookbook. Type \"create\" to create a new cookbook or type \"exit\" to return to the main menu"
+            list_cookbooks
+        end
+    end
 
     def goodbye
-        puts "Thanks for stopping by!"
+        puts "\n\nThanks for stopping by! If you created any cookbooks, they'll be saved as text files so that you can continue using them in the future. See you soon!"
     end
 
 end

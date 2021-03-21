@@ -40,7 +40,21 @@ class JustTheRecipe::Cookbook
     def write_recipe_to_cookbook(recipe)
         File.write("#{self.name}.txt", recipe.return_recipe , mode: "a")
     end
-        
+
+    def self.list_cookbooks
+        @@all.each{|i| puts "#{i.name}"}
+    end 
+    
+    def return_cookbook
+        File.read("#{self.name}.txt")
+    end
+
+    def self.delete(name)
+        if find_by_name(name) 
+            @@all.delete(find_by_name(name))
+            File.delete("#{name}.txt")
+        end
+    end
 end
 
 # gd_cookbook = JustTheRecipe::Cookbook.new("George's Cookbook")
