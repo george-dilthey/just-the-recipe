@@ -17,12 +17,14 @@ class JustTheRecipe::Scraper
         schema.key?("description") ? description = schema["description"] : nil
         schema.key?("recipeIngredient") ? ingredients = schema["recipeIngredient"] : ingredients = []
         if schema.key?("recipeInstructions") 
-            if schema["recipeInstructions"][0].class != Array && schema["recipeInstructions"][0].key?("itemListElement")
+            if schema["recipeInstructions"][0].class == Hash && schema["recipeInstructions"][0].key?("itemListElement")
                 steps = schema["recipeInstructions"].map {|section| section["itemListElement"].map {|instruction| instruction["text"].gsub("\n","")}}.flatten
             elsif schema["recipeInstructions"][0].class == Array
                 steps = schema["recipeInstructions"].flatten.map {|instruction| instruction["text"].gsub("\n","")}
-            else
+            elsif schema["recipeInstructions"].class == Array
                 steps = schema["recipeInstructions"].map {|instruction| instruction["text"].gsub("\n","")}
+            else
+                steps = [schema["recipeInstructions"]]
             end
         else 
             steps = [] 
@@ -34,17 +36,17 @@ class JustTheRecipe::Scraper
         noko = Nokogiri::HTML(open(@url))
         if (noko.css('script[type*="application/ld+json"].yoast-schema-graph')).length > 0
             js = (noko.css('script[type*="application/ld+json"].yoast-schema-graph'))
-            parsed = JSON.parse(js.text)
+            parsed = JSON.parse(js.text.gsub(/\s+/, ""))
             graph = parsed["@graph"]
             recipe = graph.find{|i| i["@type"] == "Recipe"}
         else
             js = (noko.css('script[type*="application/ld+json"]'))
             if js.length == 1 
-                parsed = JSON.parse(js.text)
+                parsed = JSON.parse(js.text.gsub(/\s+/, ""))
                 parsed.class != Array ? parsed = [parsed] : parsed = parsed
                 recipe = parsed.find{|i| i["@type"] == "Recipe"}
             else
-                parsed = js.map {|i| valid_json?(i.text) ? JSON.parse(i.text) : nil }
+                parsed = js.map {|i| valid_json?(i.text) ? JSON.parse(i.text.gsub(/\s+/, "")) : nil }
                 recipe = parsed.find{|i| i["@type"] == "Recipe"}
             end
         end
@@ -79,6 +81,8 @@ end
 # big = JustTheRecipe::Scraper.new('https://blog.bigoven.com/category/bigoven-tips/page/15/').get_recipe_by_schema.display_recipe
 # martha = JustTheRecipe::Scraper.new('https://www.marthastewart.com/1511143/potato-galettes').get_recipe_by_schema.display_recipe
 # food52 = JustTheRecipe::Scraper.new('https://food52.com/recipes/2250-potatoe-chipotle-tacos').get_recipe_by_schema.display_recipe
+# chowhound = JustTheRecipe::Scraper.new('https://www.chowhound.com/recipes/tomato-pie-31670').get_recipe_by_schema.display_recipe
+# food52part2 = JustTheRecipe::Scraper.new('https://food52.com/recipes/10168-sugar-pie').get_recipe_by_schema.display_recipe
 # all_recipe.display_recipe
 
 

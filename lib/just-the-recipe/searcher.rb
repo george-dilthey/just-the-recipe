@@ -28,12 +28,15 @@ class JustTheRecipe::Searcher
                 if JustTheRecipe::Scraper.new(url).valid_url?
                     good_url = url
                     break
+                else
+                    puts url
                 end
+
             end
             scrape_recipe(good_url)
         rescue
             puts "Sorry we couldn't find a valid recipe with that search term."
-            
+            puts e
         end
         
     end
