@@ -1,0 +1,33 @@
+
+Recipe: cookies
+Description: delicious cookies
+Ingredients:
+• chocolate chips
+• flour
+Steps:
+  1. make cookie batter
+  2. cook cookies
+Source URL: www.google.com
+***********************
+
+Recipe: cookies
+Description: delicious cookies
+Ingredients:
+• chocolate chips
+• flour
+Steps:
+  1. make cookie batter
+  2. cook cookies
+Source URL: www.google.com
+***********************
+
+Recipe: cookies
+Description: delicious cookies
+Ingredients:
+• chocolate chips
+• flour
+Steps:
+  1. make cookie batter
+  2. cook cookies
+Source URL: www.google.com
+***********************

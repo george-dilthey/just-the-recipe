@@ -36,6 +36,10 @@ class JustTheRecipe::Cookbook
     def get_recipes
         JustTheRecipe::Recipe.all.select {|i| i.cookbook == self} 
     end
+
+    def write_recipe_to_cookbook(recipe)
+        File.write("#{self.name}.txt", recipe.return_recipe , mode: "a")
+    end
         
 end
 

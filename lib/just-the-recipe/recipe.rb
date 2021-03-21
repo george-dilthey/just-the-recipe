@@ -45,6 +45,7 @@ class JustTheRecipe::Recipe
 
     def add_to_cookbook(name)
         self.cookbook = JustTheRecipe::Cookbook.find_or_create_by_name(name)
+        self.cookbook.write_recipe_to_cookbook(self) 
     end
 
     def self.display_cookbook
@@ -57,9 +58,9 @@ class JustTheRecipe::Recipe
         end
     end
 
-    def save_to_cookbook(cookbook_name)
-        File.write("#{cookbook_name}.txt", self.return_recipe, mode: "a")
-    end
+    # def save_to_cookbook(cookbook_name)
+    #     File.write("#{cookbook_name}.txt", self.return_recipe, mode: "a")
+    # end
 
 end
 
