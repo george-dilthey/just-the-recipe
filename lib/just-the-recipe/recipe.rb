@@ -44,7 +44,6 @@ class JustTheRecipe::Recipe
     end
 
     
-
     def add_to_cookbook
         @@all << self
     end
@@ -59,12 +58,8 @@ class JustTheRecipe::Recipe
         end
     end
 
-    def self.save_cookbook
-        puts "What would you like to name your cookbook?"
-        cookbook_name = gets.chomp
-        @@all.each do |r|
-            File.write("#{cookbook_name}.txt", r.return_recipe, mode: "a")
-        end
+    def save_to_cookbook(cookbook_name)
+        File.write("#{cookbook_name}.txt", self.return_recipe, mode: "a")
     end
 
 end
