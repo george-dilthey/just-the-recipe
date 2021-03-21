@@ -21,9 +21,9 @@ class JustTheRecipe::Searcher
         results = JSON.parse(response.body)
         hits = results["hits"]
         good_url = ""
-
         hits.each do |hit|
             url = hit["recipe"]["url"]
+            puts url
             if JustTheRecipe::Scraper.new(url).valid_url?
                 good_url = url
                 break
@@ -39,4 +39,4 @@ class JustTheRecipe::Searcher
 end
 
 
-# JustTheRecipe::Searcher.new('muffins').api_get
+# JustTheRecipe::Searcher.new('potatoe').api_get

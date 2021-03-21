@@ -21,23 +21,23 @@ class JustTheRecipe::Recipe
         puts " "
         puts "Recipe: #{self.title}"
         puts "Description: #{self.description}"
-        display_ingredients(ingredients)
-        display_steps(steps)
+        self.display_ingredients
+        self.display_steps
         puts "Source URL: #{self.url}" 
         puts "***********************"
         puts " "
       
     end
     
-    def display_ingredients(array)
+    def display_ingredients
         puts "Ingredients:"
-        array.map{|i| puts " • #{i}"}
+        @ingredients.each{|i| puts " • #{i}"}
     end
 
-    def display_steps(array)
+    def display_steps
         puts "Steps:"
         step_count = 1
-        array.each do |i|
+        @steps.each do |i|
             puts "  #{step_count}. #{i}"
             step_count += 1
         end
