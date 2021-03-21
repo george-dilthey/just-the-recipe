@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["George Dilthey"]
   spec.email         = ["george.dilthey@gmail.com"]
 
-  spec.summary       = "This is my summary."
-  spec.description   = "A recipe and cookbook CLI application."
+  spec.summary       = "A recipe and cookbook CLI application."
+  spec.description   = "A small CLI application to search for recipes and create simple cookbooks."
   spec.homepage      = "https://github.com/george-dilthey/just-the-recipe"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
 
