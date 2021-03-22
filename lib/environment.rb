@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'JSON'
 require 'net/http'
 
-require_relative './just-the-recipe/version.rb'
+require './lib/just-the-recipe/version.rb'
 require './lib/just-the-recipe/cli.rb'
 require './lib/just-the-recipe/cookbook.rb'
 require './lib/just-the-recipe/recipe.rb'

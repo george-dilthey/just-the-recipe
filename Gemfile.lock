@@ -2,10 +2,18 @@ PATH
   remote: .
   specs:
     just-the-recipe (0.1.0)
+      dotenv
+      nokogiri
+      open-uri
 
 GEM
   remote: https://rubygems.org/
   specs:
+    dotenv (2.7.6)
+    nokogiri (1.11.2-x86_64-darwin)
+      racc (~> 1.4)
+    open-uri (0.1.0)
+    racc (1.5.2)
     rake (13.0.3)
 
 PLATFORMS
