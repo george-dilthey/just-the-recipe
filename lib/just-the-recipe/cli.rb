@@ -17,26 +17,23 @@ class JustTheRecipe::CLI
 
     def main_menu
         prompt = TTY::Prompt.new
-        
-        input = prompt.select("Choose an option") do |menu|
+        puts "\n"
+        menu_choice = prompt.select("Choose an option") do |menu|
             menu.choice name: "Search for a new recipe.", value: 1
             menu.choice name: "Get a recipe from a URL.", value: 2
             menu.choice name: "View your cookbooks.", value: 3
             menu.choice name: "Exit", value: "exit"
-        end            
-        
-        if input == 1
+        end
+
+        case menu_choice
+        when 1
             search
-        elsif input == 2
+        when 2
             scrape_url
-        elsif input == 3
+        when 3
             cookbook_menu 
-        elsif input == "exit"
+        when "exit"
             goodbye
-        elsif input == "options"
-            list_options
-        else
-            puts "Whoops! Choose a number 1-3, type options to view your options again, or type exit."
         end
     end
 
