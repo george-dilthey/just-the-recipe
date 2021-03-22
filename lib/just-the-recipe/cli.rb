@@ -6,7 +6,6 @@ class JustTheRecipe::CLI
         JustTheRecipe::Cookbook.create_from_files
         puts "Welcome to Just the Recipe! What would you like to do?"
         main_menu
-        goodbye
     end
 
     def list_options
@@ -18,28 +17,26 @@ class JustTheRecipe::CLI
 
     def main_menu
         prompt = TTY::Prompt.new
-        input = nil
-        while input != "exit"
-            input = prompt.select("Choose an option") do |menu|
-                menu.choice name: "Search for a new recipe.", value: 1
-                menu.choice name: "Get a recipe from a URL.", value: 2
-                menu.choice name: "View your cookbooks.", value: 3
-                menu.choice name: "Exit", value: "exit"
-            end            
-            
-            if input == 1
-                search
-            elsif input == 2
-                scrape_url
-            elsif input == 3
-                cookbook_menu 
-            elsif input == "exit"
-                break
-            elsif input == "options"
-                list_options
-            else
-                puts "Whoops! Choose a number 1-3, type options to view your options again, or type exit."
-            end
+        
+        input = prompt.select("Choose an option") do |menu|
+            menu.choice name: "Search for a new recipe.", value: 1
+            menu.choice name: "Get a recipe from a URL.", value: 2
+            menu.choice name: "View your cookbooks.", value: 3
+            menu.choice name: "Exit", value: "exit"
+        end            
+        
+        if input == 1
+            search
+        elsif input == 2
+            scrape_url
+        elsif input == 3
+            cookbook_menu 
+        elsif input == "exit"
+            goodbye
+        elsif input == "options"
+            list_options
+        else
+            puts "Whoops! Choose a number 1-3, type options to view your options again, or type exit."
         end
     end
 
@@ -50,11 +47,11 @@ class JustTheRecipe::CLI
             recipe = JustTheRecipe::Scraper.new(url).get_recipe_by_schema
             recipe.display_recipe
             add_recipe(recipe)
-            list_options
+            main_menu
         else
             puts ""
             puts "Sorry, it doesn't look like we can get the recipe from that URL. Try something else."
-            list_options
+            main_menu
         end
     end
 
@@ -80,9 +77,9 @@ class JustTheRecipe::CLI
         if recipe.class == JustTheRecipe::Recipe
             recipe.display_recipe
             add_recipe(recipe)
-            list_options
+            main_menu
         else
-            list_options
+            main_menu
         end
     end
 
