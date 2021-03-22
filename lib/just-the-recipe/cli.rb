@@ -5,8 +5,7 @@ class JustTheRecipe::CLI
     def call
         JustTheRecipe::Cookbook.create_from_files
         puts "Welcome to Just the Recipe! What would you like to do?"
-        list_options
-        choose_option
+        main_menu
         goodbye
     end
 
@@ -17,15 +16,22 @@ class JustTheRecipe::CLI
         puts "3. View your cookbooks."
     end
 
-    def choose_option
+    def main_menu
+        prompt = TTY::Prompt.new
         input = nil
         while input != "exit"
-            input = gets.chomp
-            if input == "1"
+            input = prompt.select("Choose an option") do |menu|
+                menu.choice name: "Search for a new recipe.", value: 1
+                menu.choice name: "Get a recipe from a URL.", value: 2
+                menu.choice name: "View your cookbooks.", value: 3
+                menu.choice name: "Exit", value: "exit"
+            end            
+            
+            if input == 1
                 search
-            elsif input == "2"
+            elsif input == 2
                 scrape_url
-            elsif input == "3"
+            elsif input == 3
                 cookbook_menu 
             elsif input == "exit"
                 break
@@ -81,37 +87,35 @@ class JustTheRecipe::CLI
     end
 
     def cookbook_menu
-        if JustTheRecipe::Cookbook.all.length > 0
-            puts "Type the name of the cookbook you'd like to view, type \"create\" to create a new one, type \"delete\" to delete a cookbook, or type \"exit\" to return to the main menu.\n\n"    
-            JustTheRecipe::Cookbook.list_cookbooks
-        else
-            puts "It looks like you don't have any cookbooks yet. Type \"create\" to create a new one, or type \"exit\" to return to the main menu."
-        end
-        input = gets.chomp
-
+        prompt = TTY::Prompt.new
+     
+        cookbooks_create = JustTheRecipe::Cookbook.list_cookbooks << "Create a new cookbook" << "Delete" << "Exit"
+        input = prompt.select("Choose a cookbook to view or create a new one.", cookbooks_create)  
+        JustTheRecipe::Cookbook.list_cookbooks
+       
         if JustTheRecipe::Cookbook.find_by_name(input)
             puts "Here's what's in the cookbook called #{input}:" 
             puts JustTheRecipe::Cookbook.find_by_name(input).return_cookbook
-            list_options
-        elsif input == "create"
+            main_menu
+        elsif input == "Create a new cookbook"
             puts "Ok! What would you like to name your new cookbook?"
             cookbook = gets.chomp
             JustTheRecipe::Cookbook.new(cookbook)
             puts "Great! We created a new cookbook for you. Find some recipes to add to it!"
-            list_options
-        elsif input == "delete"
+            main_menu
+        elsif input == "Delete"
             puts "Which cookbook would you like to delete? WARNING: THIS CANNOT BE UNDONE!\n\n"
             JustTheRecipe::Cookbook.list_cookbooks
             delete_cookbook = gets.chomp
             JustTheRecipe::Cookbook.delete(delete_cookbook)
             puts "Ok, we deleted that cookbook."
-            list_options
-        elsif input == "exit"
-            list_options
+            main_menus
+        elsif input == "Exit"
+            main_menu
         else 
             puts ""
             puts "Sorry, thats not a valid cookbook. Type \"create\" to create a new cookbook or type \"exit\" to return to the main menu"
-            list_cookbooks
+            cookbook_menu
         end
     end
 

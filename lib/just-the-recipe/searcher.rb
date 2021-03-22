@@ -34,7 +34,6 @@ class JustTheRecipe::Searcher
             scrape_recipe(good_url)
         rescue
             puts "Sorry we couldn't find a valid recipe with that search term."
-            puts e
         end
         
     end

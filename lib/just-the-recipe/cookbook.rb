@@ -42,7 +42,9 @@ class JustTheRecipe::Cookbook
     end
 
     def self.list_cookbooks
-        @@all.each{|i| puts "#{i.name}"}
+        cookbooks = []
+        @@all.each{|i| cookbooks << i.name}
+        cookbooks
     end 
     
     def return_cookbook

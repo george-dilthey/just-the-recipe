@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "open-uri"
   spec.add_dependency "dotenv"
   spec.add_dependency "nokogiri"
+  spec.add_dependency "tty-prompt"
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html

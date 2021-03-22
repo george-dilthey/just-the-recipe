@@ -3,6 +3,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'JSON'
 require 'net/http'
+require 'tty-prompt'
 
 require './lib/just-the-recipe/version.rb'
 require './lib/just-the-recipe/cli.rb'
