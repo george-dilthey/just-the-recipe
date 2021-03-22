@@ -21,6 +21,7 @@ Or install it yourself as:
 To use this gem, you'll need to obtain a free APP ID and APP Key from https://www.edamam.com. Once you have these, create a dotenv file and add these lines at the top:
 
 APP_ID = {{APP ID}}
+
 APP_KEY = {{APP KEY}}
 
 ## Development
