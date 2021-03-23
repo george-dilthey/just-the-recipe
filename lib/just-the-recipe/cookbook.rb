@@ -39,20 +39,16 @@ class JustTheRecipe::Cookbook
     end
 
     def self.list_cookbooks
-        cookbooks = []
-        @@all.each{|i| cookbooks << i.name}
-        cookbooks
+        @@all.map{|i| i.name}
     end 
     
     def return_cookbook
-        File.read("#{self.name}.txt")
+        File.read("#{@name}.txt")
     end
 
-    def self.delete(name)
-        if find_by_name(name) 
-            @@all.delete(find_by_name(name))
-            File.delete("#{name}.txt")
-        end
+    def delete_cookbook
+        @@all.delete(self)
+        File.delete("#{@name}.txt")
     end
 end
 

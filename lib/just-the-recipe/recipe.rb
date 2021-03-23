@@ -45,25 +45,7 @@ class JustTheRecipe::Recipe
         self.cookbook.write_recipe_to_cookbook(self) 
     end
 
-    def self.display_cookbook
-        if @@all.length > 0
-            @@all.each {|r| 
-                r.display_recipe
-            }
-        else 
-            puts "You don't have anything in your cookbook!"
-        end
-    end
-
-    # def save_to_cookbook(cookbook_name)
-    #     File.write("#{cookbook_name}.txt", self.return_recipe, mode: "a")
-    # end
-
 end
-
-# new_recipe = JustTheRecipe::Recipe.new('cookies', 'delicious cookies', ['chocolate chips', 'flour'],['make cookie batter', 'cook cookies'], "www.google.com")
-# new_recipe.add_to_cookbook("George's Cookbook")
-# binding.pry
 
 
 

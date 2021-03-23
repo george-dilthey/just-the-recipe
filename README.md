@@ -1,33 +1,51 @@
-# Just::The::Recipe
+# Just The Recipe
 
-## Installation
+This app allows you to search for recipes on the web, and add them to different cookbooks that you create. The cookbooks are saved as text files so that you can return to them when you're not using the app. 
 
-Add this line to your application's Gemfile:
+The app uses a combination of the Edamam API (to search for recipes) and a URL scraper that allows you to input recipe URLs so that you can strip out "Just the Recipe".
 
-```ruby gem 'just-the-recipe'
-```
+Your cookbooks are re-instantiated when you enter the app again so you can continue adding to them over time.
 
-And then execute:
+# Installation
+
+Because we save your cookbooks as text files, its best to have this app live in its own repository. Clone down this git repository and then execute:
 
     $ bundle install
 
-Or install it yourself as:
+# Usage
 
-    $ gem install just-the-recipe
+## API Access
 
-## Usage
+To use this gem, you'll need to obtain a free APP ID and APP Key from https://www.edamam.com. Once you have these, create a `.env` file and add these lines at the top:
 
-To use this gem, you'll need to obtain a free APP ID and APP Key from https://www.edamam.com. Once you have these, create a dotenv file and add these lines at the top:
+    APP_ID = {YOUR APP ID}
+    APP_KEY = {YOUR APP KEY}
 
-APP_ID = {{APP ID}}
-APP_KEY = {{APP KEY}}
+Alternatively, you can call `JustTheRecipe.authorize({YOUR APP ID}, {YOUR APP KEY})` before making any other calls, but this will need to be done every time you re-enter the app.
 
-## Development
+## Running the app
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Run the app by running the bin file `just-the-recipe`.
+    
+    $ ruby bin/just-the-recipe
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Alternatively, you can call the `JustTheRecipe::CLI.new.call` method.
 
-## Contributing
+# Supported Websites
+
+Both the search function and the scrape function rely on scraping a website's [recipe schema](https://schema.org/Recipe). Any website that has properly implemented this schema should be scrapable, but these sites have been tested specifically.
+
+
+* https://www.allrecipes.com
+* https://food52.com
+* https://www.seriouseats.com
+* https://www.marthastewart.com
+* https://www.chowhound.com
+* https://getmecooking.com
+* https://blog.bigoven.com
+* https://www.vegrecipesofindia.com
+
+
+# Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/george-dilthey/just-the-recipe.

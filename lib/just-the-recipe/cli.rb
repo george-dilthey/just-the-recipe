@@ -1,7 +1,5 @@
 class JustTheRecipe::CLI
 
-    
-
     def call
         JustTheRecipe::Cookbook.create_from_files
         puts "Welcome to Just the Recipe! What would you like to do?"
@@ -69,13 +67,13 @@ class JustTheRecipe::CLI
             puts "Here's what's in the cookbook called #{input}:" 
             puts JustTheRecipe::Cookbook.find_by_name(input).return_cookbook
             main_menu
-        elsif input == "Create a new cookbook"
+        elsif input == "Create a new cookbook."
             create_cookbook
             main_menu
         elsif input == "Delete a cookbook."
             cookbooks_delete = JustTheRecipe::Cookbook.list_cookbooks << "Exit"
-            delete = prompt.select("Which cookbook would you like to delete? WARNING: THIS CANNOT BE UNDONE!", cookbooks_create)  
-            JustTheRecipe::Cookbook.delete(delete)
+            name = prompt.select("Which cookbook would you like to delete? WARNING: THIS CANNOT BE UNDONE!", cookbooks_delete)  
+            JustTheRecipe::Cookbook.find_by_name(name).delete_cookbook
             puts "Ok, we deleted that cookbook."
             main_menu
         elsif input == "Main Menu"
@@ -139,7 +137,5 @@ class JustTheRecipe::CLI
     def goodbye
         puts "\n\nThanks for stopping by! If you created any cookbooks, they'll be saved as text files so that you can continue using them in the future. See you soon!"
     end
-
-    
 
 end

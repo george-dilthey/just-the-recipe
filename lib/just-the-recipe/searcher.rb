@@ -31,7 +31,7 @@ class JustTheRecipe::Searcher
             end
             scrape_recipe(good_url)
         rescue
-            puts "Sorry we couldn't find a valid recipe with that search term."
+            puts "\nSorry we couldn't find a valid recipe with that search term. Make sure you've added in your API credentials, or try a different search term."
         end
         
     end
@@ -41,6 +41,3 @@ class JustTheRecipe::Searcher
     end
 
 end
-
-
-# JustTheRecipe::Searcher.new('pie').api_get
