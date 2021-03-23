@@ -6,12 +6,11 @@ require 'JSON'
 require 'net/http'
 require 'tty-prompt'
 
-require './lib/just-the-recipe/version.rb'
-require './lib/just-the-recipe/cli.rb'
-require './lib/just-the-recipe/cookbook.rb'
-require './lib/just-the-recipe/recipe.rb'
-require './lib/just-the-recipe/scraper.rb'
-require './lib/just-the-recipe/searcher.rb'
-require 'bundler/setup'
+require_relative 'just-the-recipe/version'
+require_relative 'just-the-recipe/cli'
+require_relative 'just-the-recipe/cookbook'
+require_relative 'just-the-recipe/recipe'
+require_relative 'just-the-recipe/scraper'
+require_relative 'just-the-recipe/searcher'
 
 
