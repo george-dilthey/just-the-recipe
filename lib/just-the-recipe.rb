@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'dotenv/load'
 require 'open-uri'
 require 'nokogiri'
