@@ -7,7 +7,7 @@ class JustTheRecipe::Recipe
 
     @@all = []
 
-    def initialize(title, description, ingredients, steps, url) # ingredients and steps are arrays
+    def initialize(title, description, ingredients, steps, url= "n/a") # ingredients and steps are arrays
         @title = title
         @description = description
         @ingredients = ingredients

@@ -53,8 +53,7 @@ class JustTheRecipe::CLI
             recipe.display_recipe
             add_recipe(recipe)
         else
-            puts ""
-            puts "Sorry, it doesn't look like we can get the recipe from that URL. Try something else."
+            puts "\nSorry, it doesn't look like we can get the recipe from that URL. Try something else."
             main_menu
         end
     end
@@ -89,6 +88,26 @@ class JustTheRecipe::CLI
         end
     end
 
+    def new_recipe
+        puts "Ok, what would you like to call your new recipe?"
+        name = gets.chomp
+
+        puts "Add a short description of your recipe."
+        description = gets.chomp
+
+        puts "Add the recipe's ingredients, seperated by a comma. (Ex: 1/2 cup of flour, 2 tbsp sugar, 1 cup water)"
+        ingredients = gets.chomp.split(", ")
+
+        puts "Add the recipe's instructions, seperated by a comma. (Ex: Mix the ingredients, cook the recipe, enjoy!)"
+        steps = gets.chomp.split(", ")
+
+        puts "\nGreat! Here's your new recipe:"
+        manual_recipe = JustTheRecipe::Recipe.new(name, description, ingredients, steps)
+        manual_recipe.display_recipe
+        add_recipe(manual_recipe)
+    end
+
+
     def create_cookbook
         puts "Ok! What would you like to name your new cookbook?"
         cookbook = gets.chomp
@@ -99,7 +118,7 @@ class JustTheRecipe::CLI
 
     def add_recipe(recipe)
         prompt = TTY::Prompt.new
-        puts "Would you like to add this recipe to a cookbook? (y/n)"
+        puts "Would you like to add this recipe to a cookbook? It won't be saved otherwise. (y/n)"
         input = gets.chomp
         if input == "y"
 
