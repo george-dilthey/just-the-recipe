@@ -61,7 +61,7 @@ class JustTheRecipe::CLI
     def cookbook_menu
         prompt = TTY::Prompt.new
      
-        cookbooks_create = JustTheRecipe::Cookbook.list_cookbooks << "Create a new cookbook." << "Delete" << "Exit"
+        cookbooks_create = JustTheRecipe::Cookbook.list_cookbooks << "Create a new cookbook." << "Delete a cookbook." << "Main Menu"
         input = prompt.select("Choose a cookbook to view or create a new one.", cookbooks_create)  
         JustTheRecipe::Cookbook.list_cookbooks
        
@@ -72,19 +72,14 @@ class JustTheRecipe::CLI
         elsif input == "Create a new cookbook"
             create_cookbook
             main_menu
-        elsif input == "Delete"
-            puts "Which cookbook would you like to delete? WARNING: THIS CANNOT BE UNDONE!\n\n"
-            JustTheRecipe::Cookbook.list_cookbooks
-            delete_cookbook = gets.chomp
-            JustTheRecipe::Cookbook.delete(delete_cookbook)
+        elsif input == "Delete a cookbook."
+            cookbooks_delete = JustTheRecipe::Cookbook.list_cookbooks << "Exit"
+            delete = prompt.select("Which cookbook would you like to delete? WARNING: THIS CANNOT BE UNDONE!", cookbooks_create)  
+            JustTheRecipe::Cookbook.delete(delete)
             puts "Ok, we deleted that cookbook."
-            main_menus
-        elsif input == "Exit"
             main_menu
-        else 
-            puts ""
-            puts "Sorry, thats not a valid cookbook. Type \"create\" to create a new cookbook or type \"exit\" to return to the main menu"
-            cookbook_menu
+        elsif input == "Main Menu"
+            main_menu
         end
     end
 
@@ -106,7 +101,6 @@ class JustTheRecipe::CLI
         manual_recipe.display_recipe
         add_recipe(manual_recipe)
     end
-
 
     def create_cookbook
         puts "Ok! What would you like to name your new cookbook?"
