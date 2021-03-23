@@ -7,4 +7,3 @@ class JustTheRecipe::Authenticate
 
 end
 
-Authenticate.new('6d8b7767', 'e1633ded1da9906633b79ec6c8525ac5')
