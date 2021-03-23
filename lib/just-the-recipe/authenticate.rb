@@ -1,5 +1,4 @@
-
-class Authenticate
+class JustTheRecipe::Authenticate
     
     def initialize(app_id, app_key)
         @app_id, @app_key = app_id, app_key
