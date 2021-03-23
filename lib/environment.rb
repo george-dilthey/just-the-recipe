@@ -7,7 +7,6 @@ require 'tty-prompt'
 
 Dotenv.require_keys("APP_ID", "APP_KEY")
 
-
 require './lib/just-the-recipe/version.rb'
 require './lib/just-the-recipe/cli.rb'
 require './lib/just-the-recipe/cookbook.rb'
