@@ -8,13 +8,6 @@ class JustTheRecipe::CLI
         main_menu
     end
 
-    def list_options
-        puts  "\n\nEnter a number 1-3 or type exit."
-        puts "1. Search for a new recipe."
-        puts "2. Get a recipe from a url."
-        puts "3. View your cookbooks."
-    end
-
     def main_menu
         prompt = TTY::Prompt.new
         puts "\n"
@@ -22,6 +15,7 @@ class JustTheRecipe::CLI
             menu.choice name: "Search for a new recipe.", value: 1
             menu.choice name: "Get a recipe from a URL.", value: 2
             menu.choice name: "View your cookbooks.", value: 3
+            menu.choice name: "Create a new recipe manually.", value: 4
             menu.choice name: "Exit", value: "exit"
         end
 
@@ -31,7 +25,9 @@ class JustTheRecipe::CLI
         when 2
             scrape_url
         when 3
-            cookbook_menu 
+            cookbook_menu
+        when 4
+            new_recipe 
         when "exit"
             goodbye
         end
