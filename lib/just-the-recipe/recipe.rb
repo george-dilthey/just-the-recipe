@@ -1,5 +1,3 @@
-require './lib/just-the-recipe.rb'
-
 class JustTheRecipe::Recipe
 
     attr_accessor :title, :description, :ingredients, :steps, :url, :cookbook

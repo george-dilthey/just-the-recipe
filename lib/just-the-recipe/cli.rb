@@ -1,5 +1,3 @@
-require './lib/just-the-recipe.rb'
-
 class JustTheRecipe::CLI
 
     def call

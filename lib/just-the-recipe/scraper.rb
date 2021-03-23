@@ -1,5 +1,3 @@
-require './lib/just-the-recipe.rb'
-
 class JustTheRecipe::Scraper
 
     attr_accessor :url
