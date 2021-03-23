@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "./lib/environment.rb"
+require "./lib/just-the-recipe.rb"
 
 Gem::Specification.new do |spec|
   spec.name          = "just-the-recipe"

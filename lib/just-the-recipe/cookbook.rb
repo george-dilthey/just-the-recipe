@@ -1,5 +1,5 @@
 require 'pry'
-require './lib/environment.rb'
+require './lib/just-the-recipe.rb'
 
 class JustTheRecipe::Cookbook
 

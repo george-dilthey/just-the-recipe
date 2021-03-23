@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
-require "./lib/environment.rb"
+require './lib/just-the-recipe.rb'
 
 JustTheRecipe::CLI.new.call

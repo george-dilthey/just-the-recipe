@@ -4,8 +4,7 @@
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'just-the-recipe'
+```ruby gem 'just-the-recipe'
 ```
 
 And then execute:
