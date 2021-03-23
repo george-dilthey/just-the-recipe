@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    just-the-recipe (0.1.0)
+    just-the-recipe (0.2.0)
       dotenv
       nokogiri
       open-uri
