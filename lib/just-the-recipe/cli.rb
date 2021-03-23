@@ -33,36 +33,6 @@ class JustTheRecipe::CLI
         end
     end
 
-    def scrape_url
-        puts "Enter your url:"
-        url = gets.chomp
-        if JustTheRecipe::Scraper.new(url).valid_url?
-            recipe = JustTheRecipe::Scraper.new(url).get_recipe_by_schema
-            recipe.display_recipe
-            add_recipe(recipe)
-            main_menu
-        else
-            puts ""
-            puts "Sorry, it doesn't look like we can get the recipe from that URL. Try something else."
-            main_menu
-        end
-    end
-
-    def add_recipe(recipe)
-        puts "Would you like to add this recipe to a cookbook? (y/n)"
-        input = gets.chomp
-        if input == "y"
-            puts "Ok! Which cookbook would you like to add this recipe to? Type an existing cookbook name, or type anything to create a new one!"
-            cookbook = gets.chomp
-            recipe.add_to_cookbook(cookbook)
-            puts "Great choice. We added this recipe to the cookbook called #{cookbook}"
-        elsif input == "n"
-            puts "No problem. This recipe wasn't added to a cookbook."
-        else 
-            puts "Sorry, you'll have to answer with either 'y' or 'n'."
-        end
-    end
-
     def search
         puts "Enter your search term:"
         search_term = gets.chomp
@@ -70,8 +40,21 @@ class JustTheRecipe::CLI
         if recipe.class == JustTheRecipe::Recipe
             recipe.display_recipe
             add_recipe(recipe)
-            main_menu
         else
+            main_menu
+        end
+    end
+
+    def scrape_url
+        puts "Enter your url:"
+        url = gets.chomp
+        if JustTheRecipe::Scraper.new(url).valid_url?
+            recipe = JustTheRecipe::Scraper.new(url).get_recipe_by_schema
+            recipe.display_recipe
+            add_recipe(recipe)
+        else
+            puts ""
+            puts "Sorry, it doesn't look like we can get the recipe from that URL. Try something else."
             main_menu
         end
     end
@@ -79,7 +62,7 @@ class JustTheRecipe::CLI
     def cookbook_menu
         prompt = TTY::Prompt.new
      
-        cookbooks_create = JustTheRecipe::Cookbook.list_cookbooks << "Create a new cookbook" << "Delete" << "Exit"
+        cookbooks_create = JustTheRecipe::Cookbook.list_cookbooks << "Create a new cookbook." << "Delete" << "Exit"
         input = prompt.select("Choose a cookbook to view or create a new one.", cookbooks_create)  
         JustTheRecipe::Cookbook.list_cookbooks
        
@@ -88,10 +71,7 @@ class JustTheRecipe::CLI
             puts JustTheRecipe::Cookbook.find_by_name(input).return_cookbook
             main_menu
         elsif input == "Create a new cookbook"
-            puts "Ok! What would you like to name your new cookbook?"
-            cookbook = gets.chomp
-            JustTheRecipe::Cookbook.new(cookbook)
-            puts "Great! We created a new cookbook for you. Find some recipes to add to it!"
+            create_cookbook
             main_menu
         elsif input == "Delete"
             puts "Which cookbook would you like to delete? WARNING: THIS CANNOT BE UNDONE!\n\n"
@@ -106,6 +86,40 @@ class JustTheRecipe::CLI
             puts ""
             puts "Sorry, thats not a valid cookbook. Type \"create\" to create a new cookbook or type \"exit\" to return to the main menu"
             cookbook_menu
+        end
+    end
+
+    def create_cookbook
+        puts "Ok! What would you like to name your new cookbook?"
+        cookbook = gets.chomp
+        JustTheRecipe::Cookbook.new(cookbook)
+        puts "Great! We created a new cookbook for you."
+        cookbook
+    end
+
+    def add_recipe(recipe)
+        prompt = TTY::Prompt.new
+        puts "Would you like to add this recipe to a cookbook? (y/n)"
+        input = gets.chomp
+        if input == "y"
+
+            cookbooks_create = JustTheRecipe::Cookbook.list_cookbooks << "Create a new cookbook."
+            cookbook = prompt.select("Ok! Choose a cookbook to add your recipe to, or create a new one.", cookbooks_create)  
+            if cookbook == "Create a new cookbook."
+                recipe.add_to_cookbook(create_cookbook)
+                puts "We added this recipe to your new cookbook."
+                main_menu
+            else
+                recipe.add_to_cookbook(cookbook)
+                puts "We added this recipe to the cookbook called #{cookbook}"
+                main_menu
+            end
+        elsif input == "n"
+            puts "No problem. This recipe wasn't added to a cookbook."
+            main_menu
+        else 
+            puts "Sorry, you'll have to answer with either 'y' or 'n'."
+            main_menu
         end
     end
 
