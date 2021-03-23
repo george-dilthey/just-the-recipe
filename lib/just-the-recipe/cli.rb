@@ -1,5 +1,7 @@
 class JustTheRecipe::CLI
 
+    
+
     def call
         JustTheRecipe::Cookbook.create_from_files
         puts "Welcome to Just the Recipe! What would you like to do?"

@@ -12,6 +12,5 @@ require_relative 'just-the-recipe/cookbook'
 require_relative 'just-the-recipe/recipe'
 require_relative 'just-the-recipe/scraper'
 require_relative 'just-the-recipe/searcher'
-require_relative 'just-the-recipe/authenticate'
 
 

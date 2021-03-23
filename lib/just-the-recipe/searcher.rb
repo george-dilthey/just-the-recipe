@@ -4,12 +4,14 @@ class JustTheRecipe::Searcher
         @search_term = search_term
     end
 
+
+
     def api_get
         begin    
             base = 'https://api.edamam.com/search'
             q = @search_term
-            app_id = ENV["APP_ID"]
-            app_key = ENV["APP_KEY"]
+            app_id = JustTheRecipe.app_id
+            app_key = JustTheRecipe.app_key
 
             url = "#{base}?q=#{q}&app_id=#{app_id}&app_key=#{app_key}"
             uri = URI.parse(url)
