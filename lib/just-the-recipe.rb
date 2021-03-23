@@ -1,4 +1,4 @@
-require 'bundler/setup'
+
 require 'dotenv/load'
 require 'open-uri'
 require 'nokogiri'
@@ -12,5 +12,6 @@ require './lib/just-the-recipe/cookbook.rb'
 require './lib/just-the-recipe/recipe.rb'
 require './lib/just-the-recipe/scraper.rb'
 require './lib/just-the-recipe/searcher.rb'
+require 'bundler/setup'
 
 
