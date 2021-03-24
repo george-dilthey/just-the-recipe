@@ -1,5 +1,5 @@
 module JustTheRecipe
-    VERSION = "0.12.0"
+    VERSION = "0.13.0"
 
     @@app_id = ENV["APP_ID"]
     @@app_key = ENV["APP_KEY"]
