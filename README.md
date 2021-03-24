@@ -27,7 +27,11 @@ Alternatively, you can call `JustTheRecipe.authorize({YOUR APP ID}, {YOUR APP KE
 
 Run the app by running the bin file `just-the-recipe`.
     
-    $ ruby bin/just-the-recipe
+    $ bin/just-the-recipe
+
+If you get a permission denied error, run this to give the bin file run permissions:
+
+    $ chmod +x bin/just-the-recipe
 
 Alternatively, you can call the `JustTheRecipe::CLI.new.call` method.
 
