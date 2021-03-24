@@ -8,8 +8,9 @@ Your cookbooks are re-instantiated when you enter the app again so you can conti
 
 # Installation
 
-Because we save your cookbooks as text files, its best to have this app live in its own repository. Clone down this git repository and then execute:
+Because we save your cookbooks as text files, its best to have this app live in its own repository. Clone down this git repository and then use bundle to install the dependencies:
 
+    $ git clone https://github.com/george-dilthey/just-the-recipe.git
     $ bundle install
 
 # Usage
