@@ -51,6 +51,3 @@ class JustTheRecipe::Cookbook
         File.delete("#{@name}.txt")
     end
 end
-
-# gd_cookbook = JustTheRecipe::Cookbook.new("George's Cookbook")
-# binding.pry
